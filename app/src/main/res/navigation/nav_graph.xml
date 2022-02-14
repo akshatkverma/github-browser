@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/repoFragment">
+
+    <fragment
+        android:id="@+id/repoFragment"
+        android:name="net.gramoday.githubbrowser.fragments.RepoFragment"
+        android:label="fragment_repo"
+        tools:layout="@layout/fragment_repo" >
+        <action
+            android:id="@+id/action_repoFragment_to_addRepoFragment"
+            app:destination="@id/addRepoFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_repoFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRepoFragment"
+        android:name="net.gramoday.githubbrowser.fragments.AddRepoFragment"
+        android:label="fragment_add_repo"
+        tools:layout="@layout/fragment_add_repo" >
+        <action
+            android:id="@+id/action_addRepoFragment_to_repoFragment"
+            app:destination="@id/repoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/repoDetailFragment"
+        android:name="net.gramoday.githubbrowser.fragments.RepoDetailFragment"
+        android:label="fragment_repo_detail"
+        tools:layout="@layout/fragment_repo_detail" >
+        <action
+            android:id="@+id/action_repoDetailFragment_to_branchCommitFragment"
+            app:destination="@id/branchCommitFragment" />
+        <action
+            android:id="@+id/action_repoDetailFragment_to_repoFragment"
+            app:destination="@id/repoFragment" />
+        <argument
+            android:name="orgName"
+            app:argType="string" />
+        <argument
+            android:name="repoName"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="pos"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/branchCommitFragment"
+        android:name="net.gramoday.githubbrowser.fragments.BranchCommitFragment"
+        android:label="fragment_branch_commit"
+        tools:layout="@layout/fragment_branch_commit" />
+</navigation>
