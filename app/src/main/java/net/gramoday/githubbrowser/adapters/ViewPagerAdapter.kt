@@ -7,11 +7,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import net.gramoday.githubbrowser.fragments.BranchesFragment
 import net.gramoday.githubbrowser.fragments.IssuesFragment
 
-class ViewPagerAdapter(fragmentManger: FragmentManager, lifecycle: Lifecycle, _orgName:String, _repoName:String) :
+class ViewPagerAdapter(fragmentManger: FragmentManager, lifecycle: Lifecycle, _orgName:String, _repoName:String, _desc:String) :
     FragmentStateAdapter(fragmentManger, lifecycle) {
 
     private val orgName=_orgName
     private val repoName=_repoName
+    private val desc=_desc
 
     override fun getItemCount(): Int {
         return 2
@@ -20,7 +21,7 @@ class ViewPagerAdapter(fragmentManger: FragmentManager, lifecycle: Lifecycle, _o
     override fun createFragment(position: Int): Fragment {
         return when(position)
                 {
-                    0->BranchesFragment(orgName,repoName)
+                    0->BranchesFragment(orgName,repoName,desc)
                     1->IssuesFragment(orgName,repoName)
                     else->Fragment()
                 }

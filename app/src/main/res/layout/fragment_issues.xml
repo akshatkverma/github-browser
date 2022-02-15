@@ -11,6 +11,16 @@
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         />
+    <TextView
+        android:id="@+id/ifNoIssues"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No open issues in this repository"
+        android:layout_centerInParent="true"
+        android:textSize="40sp"
+        android:visibility="gone"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/issuesRecyclerView"

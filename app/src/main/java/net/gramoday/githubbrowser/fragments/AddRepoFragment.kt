@@ -86,6 +86,8 @@ class AddRepoFragment : Fragment() {
         toolbar.toolbarTitle.text = "Add Repository"
         toolbar.toolbarSubtitle.visibility = View.GONE
         toolbar.addButton.visibility = View.INVISIBLE
+        toolbar.deleteButton.visibility=View.INVISIBLE
+        toolbar.openBrowser.visibility=View.INVISIBLE
 
         toolbar.backButton.setOnClickListener {
             val action = AddRepoFragmentDirections.actionAddRepoFragmentToRepoFragment()

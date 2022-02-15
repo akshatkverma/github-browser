@@ -1,5 +1,6 @@
 package net.gramoday.githubbrowser.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -15,12 +16,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import net.gramoday.githubbrowser.R
 import net.gramoday.githubbrowser.entities.Commits
-import org.w3c.dom.Text
 
 class CommitsAdapter(
-    context:Context
+    _context:Context
 ) :RecyclerView.Adapter<CommitsAdapter.CommitsViewHolder>(){
-
+    private val context=_context
     private var dataset= mutableListOf<Commits>()
 
     inner class CommitsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,10 +38,11 @@ class CommitsAdapter(
         return CommitsViewHolder(adapterLayout)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CommitsViewHolder, position: Int) {
         holder.name.text=dataset[position].userName
-        holder.msg.text=dataset[position].msg
-        holder.date.text=dataset[position].date
+        holder.msg.text="Commit Message : \n${dataset[position].msg}"
+        holder.date.text=formatDate(dataset[position].date)
         holder.sha.text=dataset[position].sha.substring(0,7)
         Glide.with(holder.itemView.context).load(dataset[position].imgUrl).listener(object:
             RequestListener<Drawable> {
@@ -75,5 +76,28 @@ class CommitsAdapter(
         dataset.clear()
         dataset.addAll(updatedDataset)
         notifyDataSetChanged()
+    }
+
+    private fun formatDate(og: String): String {
+        return "${og[8]}${og[9]} ${getMonth("${og[5]}${og[6]}")} ${og[2]}${og[3]}"
+    }
+
+    private fun getMonth(mon:String): String {
+        return when(mon)
+        {
+            "01"->"Jan"
+            "02"->"Feb"
+            "03"->"Mar"
+            "04"->"Apr"
+            "05"->"May"
+            "06"->"June"
+            "07"->"July"
+            "08"->"Aug"
+            "09"->"Sept"
+            "10"->"Oct"
+            "11"->"Nov"
+            "12"->"Dec"
+            else -> {"Jan"}
+        }
     }
 }

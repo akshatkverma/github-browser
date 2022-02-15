@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,7 +30,7 @@ class RepoDetailFragment : Fragment() {
     private lateinit var repoName: String
     private lateinit var desc: String
 
-    private lateinit var viewModel:RepoViewModel
+    private lateinit var viewModel: RepoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,12 @@ class RepoDetailFragment : Fragment() {
             repoName = it.getString("repoName").toString()
             desc = it.getString("description").toString()
         }
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val action = RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
+            findNavController().navigate(action)
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onCreateView(
@@ -52,7 +59,7 @@ class RepoDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, orgName, repoName)
+        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, orgName, repoName, desc)
         binding.repoName.text = "$orgName/$repoName"
         binding.descriptionRepo.text = desc
 
@@ -74,25 +81,24 @@ class RepoDetailFragment : Fragment() {
         )[RepoViewModel::class.java]
     }
 
-    private fun setToolBar()
-    {
-        val toolbar=binding.toolbars
-        toolbar.toolbarSubtitle.visibility=View.GONE
-        toolbar.toolbarTitle.text="Details"
-        toolbar.addButton.visibility=View.GONE
+    private fun setToolBar() {
+        val toolbar = binding.toolbars
+        toolbar.toolbarSubtitle.visibility = View.GONE
+        toolbar.toolbarTitle.text = "Details"
+        toolbar.addButton.visibility = View.GONE
         toolbar.openBrowser.setOnClickListener {
             val openURL = Intent(Intent.ACTION_VIEW)
-            val uri="https://github.com/"+orgName+"/"+repoName
+            val uri = "https://github.com/$orgName/$repoName"
             openURL.data = Uri.parse(uri)
             startActivity(openURL)
         }
         toolbar.deleteButton.setOnClickListener {
-            viewModel.deleteRepo(Repo(orgName,repoName,desc))
-            val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
+            viewModel.deleteRepo(Repo(orgName, repoName, desc))
+            val action = RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
             findNavController().navigate(action)
         }
         toolbar.backButton.setOnClickListener {
-            val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
+            val action = RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
             findNavController().navigate(action)
         }
     }

@@ -32,6 +32,12 @@ class RepoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.addButtonEmpty.setOnClickListener {
+            val action = RepoFragmentDirections.actionRepoFragmentToAddRepoFragment()
+            findNavController().navigate(action)
+        }
+
         setToolBar()
 
         val recyclerView = binding.repoRecyclerView
@@ -73,6 +79,10 @@ class RepoFragment : Fragment() {
         viewModel.allRepoItems.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.updateClassItems(it)
+                if(it.isEmpty())
+                {
+                    binding.ifEmptyRepos.visibility=View.VISIBLE
+                }
             }
         }
 

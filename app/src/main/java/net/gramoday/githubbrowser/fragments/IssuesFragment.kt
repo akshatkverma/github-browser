@@ -69,6 +69,10 @@ class IssuesFragment(_orgName:String, _repoName:String) : Fragment() {
                     issues.add(temp)
 //                    Toast.makeText(requireContext(),jsonObject.getString("name"),Toast.LENGTH_SHORT).show()
                 }
+                if(it.length()==0)
+                {
+                    binding.ifNoIssues.visibility=View.VISIBLE
+                }
                 binding.progressBar.visibility=View.GONE
                 adapter.updateIssuesItems(issues)
             },

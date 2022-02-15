@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.toolbox.JsonArrayRequest
@@ -41,7 +42,7 @@ class BranchCommitFragment : Fragment() {
             orgName = it.getString("orgName").toString()
             repoName = it.getString("repoName").toString()
             branch = it.getString("branch").toString()
-            description = it.getString("desc").toString()
+            description = it.getString("description").toString()
         }
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -53,6 +54,7 @@ class BranchCommitFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onCreateView(
@@ -73,6 +75,7 @@ class BranchCommitFragment : Fragment() {
         getCommitData()
         setToolBar()
 
+//        Toast.makeText(requireContext(),description,Toast.LENGTH_SHORT).show()
     }
 
 
@@ -88,11 +91,9 @@ class BranchCommitFragment : Fragment() {
                     val jsonObject = it.getJSONObject(i)
                     val temp = Commits(
                         jsonObject.getString("sha"),
-                        jsonObject.getJSONObject("commit").getJSONObject("author")
-                            .getString("date"),
+                        jsonObject.getJSONObject("commit").getJSONObject("author").getString("date"),
                         jsonObject.getJSONObject("commit").getString("message"),
-                        jsonObject.getJSONObject("commit").getJSONObject("author")
-                            .getString("name"),
+                        jsonObject.getJSONObject("commit").getJSONObject("author").getString("name"),
                         jsonObject.getJSONObject("author").getString("avatar_url")
                     )
                     commits.add(temp)
@@ -131,4 +132,8 @@ class BranchCommitFragment : Fragment() {
         binding.toolbars.toolbarTitle.text = "Commits"
         binding.toolbars.toolbarSubtitle.text = branch
     }
+
+
+
+
 }

@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
     android:layout_margin="8dp"
-
+    app:cardElevation="10dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         >
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -27,6 +28,14 @@
                 android:text="Title of the issue"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Author:"
+                android:textStyle="bold"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

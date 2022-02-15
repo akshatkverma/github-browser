@@ -18,13 +18,14 @@ import net.gramoday.githubbrowser.databinding.FragmentBranchesBinding
 import net.gramoday.githubbrowser.viewModels.RepoViewModel
 
 
-class BranchesFragment (_orgName:String, _repoName:String): Fragment() {
+class BranchesFragment (_orgName:String, _repoName:String, _desc:String): Fragment() {
 
     private var _binding: FragmentBranchesBinding? = null
     private val binding get() = _binding!!
 
-    private  var orgName=_orgName
-    private  var repoName=_repoName
+    private var orgName=_orgName
+    private var repoName=_repoName
+    private val desc=_desc
 
     private var branches= mutableListOf<String>()
 
@@ -45,14 +46,16 @@ class BranchesFragment (_orgName:String, _repoName:String): Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = BranchesAdapter(requireContext())
         recyclerView.adapter = adapter
-
+//        Toast.makeText(requireContext(),desc,Toast.LENGTH_SHORT).show()
         adapter.onItemClick={_,pos->
 
             val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToBranchCommitFragment(
                 orgName = orgName,
                 repoName = repoName,
-                branch = branches[pos]
+                branch = branches[pos],
+                description = desc
             )
+
             findNavController().navigate(action)
         }
 
