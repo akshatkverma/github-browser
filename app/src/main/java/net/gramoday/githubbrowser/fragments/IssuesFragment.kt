@@ -26,7 +26,7 @@ class IssuesFragment(_orgName:String, _repoName:String) : Fragment() {
 
     private val issues= mutableListOf<Issues>()
 
-     private lateinit var adapter: IssuesAdapter
+    private lateinit var adapter: IssuesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

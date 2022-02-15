@@ -45,9 +45,7 @@ class RepoFragment : Fragment() {
                 orgName = repoItems[pos].owner,
                 repoName = repoItems[pos].repoName,
                 description = repoItems[pos].description,
-                pos = pos.toString()
             )
-            viewModel.currentPos = pos
             findNavController().navigate(action)
         }
 

@@ -7,9 +7,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import net.gramoday.githubbrowser.fragments.BranchesFragment
 import net.gramoday.githubbrowser.fragments.IssuesFragment
 
-class ViewPagerAdapter(fragmentManger: FragmentManager, lifecycle: Lifecycle, posi:Int, _orgName:String, _repoName:String) :
+class ViewPagerAdapter(fragmentManger: FragmentManager, lifecycle: Lifecycle, _orgName:String, _repoName:String) :
     FragmentStateAdapter(fragmentManger, lifecycle) {
-    private val pos=posi
+
     private val orgName=_orgName
     private val repoName=_repoName
 

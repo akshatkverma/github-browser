@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -47,6 +48,12 @@ class BranchesFragment (_orgName:String, _repoName:String): Fragment() {
 
         adapter.onItemClick={_,pos->
 
+            val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToBranchCommitFragment(
+                orgName = orgName,
+                repoName = repoName,
+                branch = branches[pos]
+            )
+            findNavController().navigate(action)
         }
 
         getBranchData()

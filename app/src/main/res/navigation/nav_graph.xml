@@ -34,9 +34,6 @@
         android:label="fragment_repo_detail"
         tools:layout="@layout/fragment_repo_detail" >
         <action
-            android:id="@+id/action_repoDetailFragment_to_branchCommitFragment"
-            app:destination="@id/branchCommitFragment" />
-        <action
             android:id="@+id/action_repoDetailFragment_to_repoFragment"
             app:destination="@id/repoFragment" />
         <argument
@@ -48,13 +45,25 @@
         <argument
             android:name="description"
             app:argType="string" />
-        <argument
-            android:name="pos"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_repoDetailFragment_to_branchCommitFragment"
+            app:destination="@id/branchCommitFragment" />
     </fragment>
     <fragment
         android:id="@+id/branchCommitFragment"
         android:name="net.gramoday.githubbrowser.fragments.BranchCommitFragment"
         android:label="fragment_branch_commit"
-        tools:layout="@layout/fragment_branch_commit" />
+        tools:layout="@layout/fragment_branch_commit" >
+        <argument
+            android:name="orgName"
+            app:argType="string" />
+        <argument android:name="repoName"
+            app:argType="string" />
+        <argument
+            android:name="branch"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_branchCommitFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+    </fragment>
 </navigation>

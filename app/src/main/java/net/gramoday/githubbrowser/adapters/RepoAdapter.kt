@@ -57,7 +57,7 @@ class RepoAdapter(
                     "Link : " + "https://github.com/"+dataset[position].owner+"/"+dataset[position].repoName
                     )
             shareIntent.type = "text/plain"
-            context.startActivity(Intent.createChooser(shareIntent,"Send to.."))
+            context.startActivity(Intent.createChooser(shareIntent,"Share with.."))
         }
     }
 

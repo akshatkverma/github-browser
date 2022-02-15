@@ -1,5 +1,6 @@
 package net.gramoday.githubbrowser.fragments
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
@@ -27,23 +28,15 @@ class RepoDetailFragment : Fragment() {
     private lateinit var orgName: String
     private lateinit var repoName: String
     private lateinit var desc: String
-    private lateinit var pos: String
 
     private lateinit var viewModel:RepoViewModel
-
-    companion object {
-        const val ORGNAME = "orgName"
-        const val REPONAME = "repoName"
-        const val DESC = "description"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            orgName = it.getString(ORGNAME).toString()
-            repoName = it.getString(REPONAME).toString()
-            desc = it.getString(DESC).toString()
-            pos=it.getString("pos").toString()
+            orgName = it.getString("orgName").toString()
+            repoName = it.getString("repoName").toString()
+            desc = it.getString("description").toString()
         }
     }
 
@@ -55,11 +48,12 @@ class RepoDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle,pos.toInt(), orgName, repoName)
-        binding.repoName.text = orgName+"/"+repoName
+        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, orgName, repoName)
+        binding.repoName.text = "$orgName/$repoName"
         binding.descriptionRepo.text = desc
 
         viewPager.adapter = adapter
@@ -94,6 +88,10 @@ class RepoDetailFragment : Fragment() {
         }
         toolbar.deleteButton.setOnClickListener {
             viewModel.deleteRepo(Repo(orgName,repoName,desc))
+            val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
+            findNavController().navigate(action)
+        }
+        toolbar.backButton.setOnClickListener {
             val action=RepoDetailFragmentDirections.actionRepoDetailFragmentToRepoFragment()
             findNavController().navigate(action)
         }
