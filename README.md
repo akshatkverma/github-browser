@@ -13,3 +13,7 @@ It uses the GitHub APIs for fetching the data based upon the organization/owner 
 ```bash
 git clone https://github.com/akshatkverma/github-browser
 ```
+
+## Screenshots of the application :
+
+![Application Screenshots](./doc_assets/screenshots.png)
