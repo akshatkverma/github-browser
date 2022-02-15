@@ -64,7 +64,7 @@ class AddRepoFragment : Fragment() {
                 {
                     binding.addRepoButton.visibility=View.VISIBLE
                     binding.addProgress.visibility=View.GONE
-                    Toast.makeText(requireContext(),"Couldn't find the repository...",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireContext(),"Couldn't find the repository...",Toast.LENGTH_LONG).show()
                     binding.ownerOrgName.setText("")
                     binding.repoName.setText("")
                 }
