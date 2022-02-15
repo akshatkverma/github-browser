@@ -6,7 +6,7 @@
     tools:context=".fragments.RepoFragment">
 
     <include
-        android:id="@+id/toolbars"
+        android:id="@+id/toolbar_repofrag"
         layout="@layout/tool_bar"
         />
 
@@ -37,7 +37,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/repoRecyclerView"
-        android:layout_below="@id/toolbars"
+        android:layout_below="@id/toolbar_repofrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
