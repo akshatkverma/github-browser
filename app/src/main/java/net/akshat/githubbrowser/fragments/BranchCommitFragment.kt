@@ -84,10 +84,12 @@ class BranchCommitFragment : Fragment() {
                     val jsonObject = it.getJSONObject(i)
                     val temp = Commits(
                         jsonObject.getString("sha"),
-                        jsonObject.getJSONObject("commit").getJSONObject("author").getString("date"),
+                        jsonObject.getJSONObject("commit").getJSONObject("author")
+                            .getString("date"),
                         jsonObject.getJSONObject("commit").getString("message"),
                         jsonObject.getJSONObject("author").getString("login"),
-                        jsonObject.getJSONObject("commit").getJSONObject("author").getString("name"),
+                        jsonObject.getJSONObject("commit").getJSONObject("author")
+                            .getString("name"),
                         jsonObject.getJSONObject("author").getString("avatar_url"),
                     )
                     commits.add(temp)
@@ -126,8 +128,6 @@ class BranchCommitFragment : Fragment() {
         binding.toolbars.toolbarTitle.text = "Commits"
         binding.toolbars.toolbarSubtitle.text = branch
     }
-
-
 
 
 }

@@ -8,12 +8,12 @@ import net.akshat.githubbrowser.dao.RepoDao
 import net.akshat.githubbrowser.entities.Repo
 
 
-@Database(entities = [Repo::class],version=1, exportSchema = false)
-abstract class RepoDatabase :RoomDatabase(){
+@Database(entities = [Repo::class], version = 1, exportSchema = false)
+abstract class RepoDatabase : RoomDatabase() {
 
     abstract fun getDao(): RepoDao
 
-    companion object{
+    companion object {
 
         @Volatile
         private var INSTANCE: RepoDatabase? = null

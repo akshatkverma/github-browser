@@ -55,16 +55,14 @@ class RepoFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        adapter.onItemLongClick={_,position->
+        adapter.onItemLongClick = { _, position ->
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Delete Repository")
                 .setMessage("Are you sure you want to delete entry of ${repoItems[position].owner}/${repoItems[position].repoName}?")
-                .setNegativeButton("Cancel"){
-                        dialog,_->
+                .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .setPositiveButton("Delete"){
-                        dialog,_->
+                .setPositiveButton("Delete") { dialog, _ ->
                     viewModel.deleteRepo(repoItems[position])
                     dialog.dismiss()
                 }
@@ -79,9 +77,8 @@ class RepoFragment : Fragment() {
         viewModel.allRepoItems.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.updateClassItems(it)
-                if(it.isEmpty())
-                {
-                    binding.ifEmptyRepos.visibility=View.VISIBLE
+                if (it.isEmpty()) {
+                    binding.ifEmptyRepos.visibility = View.VISIBLE
                 }
             }
         }
@@ -93,8 +90,8 @@ class RepoFragment : Fragment() {
         toolbar.toolbarTitle.text = "Github Browser"
         toolbar.toolbarSubtitle.visibility = View.GONE
         toolbar.backButton.visibility = View.INVISIBLE
-        toolbar.deleteButton.visibility=View.INVISIBLE
-        toolbar.openBrowser.visibility=View.INVISIBLE
+        toolbar.deleteButton.visibility = View.INVISIBLE
+        toolbar.openBrowser.visibility = View.INVISIBLE
 
         toolbar.addButton.setOnClickListener {
             val action = RepoFragmentDirections.actionRepoFragmentToAddRepoFragment()

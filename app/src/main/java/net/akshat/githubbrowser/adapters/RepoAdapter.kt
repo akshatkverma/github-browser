@@ -14,21 +14,22 @@ import net.akshat.githubbrowser.entities.Repo
 class RepoAdapter(
     private val context: Context,
     private val dataset: MutableList<Repo>
-) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder> (){
+) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
 
     var onItemClick: ((Repo, Int) -> Unit)? = null
-    var onItemLongClick: ((Repo, Int) -> Unit)?= null
+    var onItemLongClick: ((Repo, Int) -> Unit)? = null
 
     inner class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val repoName: TextView =view.findViewById(R.id.repoName)
-        val desc:TextView=view.findViewById(R.id.description)
-        val button:ImageButton=view.findViewById(R.id.sentImage)
+        val repoName: TextView = view.findViewById(R.id.repoName)
+        val desc: TextView = view.findViewById(R.id.description)
+        val button: ImageButton = view.findViewById(R.id.sentImage)
+
         init {
-            itemView.setOnClickListener{
-                onItemClick?.invoke(dataset[adapterPosition],adapterPosition)
+            itemView.setOnClickListener {
+                onItemClick?.invoke(dataset[adapterPosition], adapterPosition)
             }
             itemView.setOnLongClickListener {
-                onItemLongClick?.invoke(dataset[adapterPosition],adapterPosition)
+                onItemLongClick?.invoke(dataset[adapterPosition], adapterPosition)
                 return@setOnLongClickListener true
             }
         }
@@ -42,23 +43,24 @@ class RepoAdapter(
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.repoName.text = dataset[position].owner+"/"+dataset[position].repoName
-        if(dataset[position].description=="null")
-            holder.desc.text=""
+        holder.repoName.text = dataset[position].owner + "/" + dataset[position].repoName
+        if (dataset[position].description == "null")
+            holder.desc.text = ""
         else
             holder.desc.text = dataset[position].description
 
         holder.button.setOnClickListener {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Have a look at this awesome repository.\n" +
-                    "Organization : " + dataset[position].owner+"\n"+
-                    "Repository : " + dataset[position].repoName+"\n"+
-                    "Description : " + dataset[position].description+"\n"+
-                    "Link : " + "https://github.com/"+dataset[position].owner+"/"+dataset[position].repoName
-                    )
+            shareIntent.putExtra(
+                Intent.EXTRA_TEXT, "Have a look at this awesome repository.\n" +
+                        "Organization : " + dataset[position].owner + "\n" +
+                        "Repository : " + dataset[position].repoName + "\n" +
+                        "Description : " + dataset[position].description + "\n" +
+                        "Link : " + "https://github.com/" + dataset[position].owner + "/" + dataset[position].repoName
+            )
             shareIntent.type = "text/plain"
-            context.startActivity(Intent.createChooser(shareIntent,"Share with.."))
+            context.startActivity(Intent.createChooser(shareIntent, "Share with.."))
         }
     }
 
@@ -66,8 +68,7 @@ class RepoAdapter(
         return dataset.size
     }
 
-    fun updateClassItems(updatedDataset:List<Repo>)
-    {
+    fun updateClassItems(updatedDataset: List<Repo>) {
         dataset.clear()
         dataset.addAll(updatedDataset)
         notifyDataSetChanged()

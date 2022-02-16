@@ -13,9 +13,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import net.akshat.githubbrowser.R
 import net.akshat.githubbrowser.entities.Issues
-import com.bumptech.glide.request.target.Target
 
 class IssuesAdapter(
     context: Context
@@ -27,7 +27,7 @@ class IssuesAdapter(
         val title: TextView = view.findViewById(R.id.titleIssue)
         val avatar: ImageView = view.findViewById(R.id.userAvatar)
         val name: TextView = view.findViewById(R.id.userName)
-        val pg:ProgressBar=view.findViewById(R.id.pgBar)
+        val pg: ProgressBar = view.findViewById(R.id.pgBar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssuesViewHolder {
@@ -38,9 +38,9 @@ class IssuesAdapter(
     }
 
     override fun onBindViewHolder(holder: IssuesViewHolder, position: Int) {
-        holder.name.text=dataset[position].name
-        holder.title.text=dataset[position].title
-        Glide.with(holder.itemView.context).load(dataset[position].url).listener(object:
+        holder.name.text = dataset[position].name
+        holder.title.text = dataset[position].title
+        Glide.with(holder.itemView.context).load(dataset[position].url).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -49,7 +49,7 @@ class IssuesAdapter(
                 isFirstResource: Boolean
             ): Boolean {
                 holder.pg.visibility = View.GONE
-                holder.avatar.visibility=View.VISIBLE
+                holder.avatar.visibility = View.VISIBLE
                 return false
             }
 
@@ -61,7 +61,7 @@ class IssuesAdapter(
                 isFirstResource: Boolean
             ): Boolean {
                 holder.pg.visibility = View.GONE
-                holder.avatar.visibility=View.VISIBLE
+                holder.avatar.visibility = View.VISIBLE
                 return false
             }
         }).into(holder.avatar)
@@ -71,8 +71,7 @@ class IssuesAdapter(
         return dataset.size
     }
 
-    fun updateIssuesItems(updatedDataset:List<Issues>)
-    {
+    fun updateIssuesItems(updatedDataset: List<Issues>) {
         dataset.clear()
         dataset.addAll(updatedDataset)
         notifyDataSetChanged()

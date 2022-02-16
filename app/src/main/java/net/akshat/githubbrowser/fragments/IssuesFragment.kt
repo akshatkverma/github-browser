@@ -15,19 +15,19 @@ import net.akshat.githubbrowser.databinding.FragmentIssuesBinding
 import net.akshat.githubbrowser.entities.Issues
 
 class IssuesFragment(
-    _orgName:String,
-    _repoName:String,
-    _tab:TabLayout
+    _orgName: String,
+    _repoName: String,
+    _tab: TabLayout
 ) : Fragment() {
 
     private var _binding: FragmentIssuesBinding? = null
     private val binding get() = _binding!!
 
-    private val orgName=_orgName
-    private val repoName=_repoName
-    private val tabLayout=_tab
+    private val orgName = _orgName
+    private val repoName = _repoName
+    private val tabLayout = _tab
 
-    private val issues= mutableListOf<Issues>()
+    private val issues = mutableListOf<Issues>()
 
     private lateinit var adapter: IssuesAdapter
 
@@ -40,28 +40,26 @@ class IssuesFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView=binding.issuesRecyclerView
+        val recyclerView = binding.issuesRecyclerView
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager=LinearLayoutManager(requireContext())
-        adapter= IssuesAdapter(requireContext())
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = IssuesAdapter(requireContext())
+        recyclerView.adapter = adapter
 
         getIssuesData()
     }
 
-    private fun getIssuesData()
-    {
-        val url="https://api.github.com/repos/$orgName/$repoName/issues?state=open"
-        val queue= Volley.newRequestQueue(requireContext())
+    private fun getIssuesData() {
+        val url = "https://api.github.com/repos/$orgName/$repoName/issues?state=open"
+        val queue = Volley.newRequestQueue(requireContext())
 
-        val jsonArrayRequest=object: JsonArrayRequest(
-            Method.GET,url,null,
+        val jsonArrayRequest = object : JsonArrayRequest(
+            Method.GET, url, null,
             {
                 issues.clear()
-                for(i in 0 until it.length())
-                {
-                    val jsonObject=it.getJSONObject(i)
-                    val temp= Issues(
+                for (i in 0 until it.length()) {
+                    val jsonObject = it.getJSONObject(i)
+                    val temp = Issues(
                         jsonObject.getString("title"),
                         jsonObject.getJSONObject("user").getString("avatar_url"),
                         jsonObject.getJSONObject("user").getString("login")
@@ -69,19 +67,18 @@ class IssuesFragment(
                     issues.add(temp)
 //                    Toast.makeText(requireContext(),jsonObject.getString("name"),Toast.LENGTH_SHORT).show()
                 }
-                if(it.length()==0)
-                {
-                    binding.ifNoIssues.visibility=View.VISIBLE
+                if (it.length() == 0) {
+                    binding.ifNoIssues.visibility = View.VISIBLE
                 }
-                binding.progressBar.visibility=View.GONE
+                binding.progressBar.visibility = View.GONE
                 adapter.updateIssuesItems(issues)
-                tabLayout.getTabAt(1)?.text="Issues (${it.length()})"
+                tabLayout.getTabAt(1)?.text = "Issues (${it.length()})"
             },
             {
-                Toast.makeText(requireContext(),"Some Error Occurred $it", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Some Error Occurred $it", Toast.LENGTH_SHORT)
+                    .show()
             }
-        )
-        {
+        ) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 headers["Accept"] = "application/vnd.github.v3+json"

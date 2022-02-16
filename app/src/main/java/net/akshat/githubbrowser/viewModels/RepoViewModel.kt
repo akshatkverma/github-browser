@@ -15,21 +15,19 @@ class RepoViewModel(application: Application) : AndroidViewModel(application) {
 
     val allRepoItems: LiveData<List<Repo>>
 
-    val issues=MutableLiveData<Int>()
-
     private val repository: RepoRepository
+
     init {
         val dao = RepoDatabase.getDatabase(application).getDao()
         repository = RepoRepository(dao)
         allRepoItems = repository.allRepos
-        issues.value=0
     }
 
-    fun insertRepo(repoItem: Repo)=viewModelScope.launch(Dispatchers.IO) {
+    fun insertRepo(repoItem: Repo) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertRepo(repoItem)
     }
 
-    fun deleteRepo(repoItem: Repo)=viewModelScope.launch(Dispatchers.IO) {
+    fun deleteRepo(repoItem: Repo) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteRepo(repoItem)
     }
 }

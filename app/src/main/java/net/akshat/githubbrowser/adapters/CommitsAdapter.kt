@@ -18,18 +18,18 @@ import net.akshat.githubbrowser.R
 import net.akshat.githubbrowser.entities.Commits
 
 class CommitsAdapter(
-    _context:Context
-) :RecyclerView.Adapter<CommitsAdapter.CommitsViewHolder>(){
-    private val context=_context
-    private var dataset= mutableListOf<Commits>()
+    _context: Context
+) : RecyclerView.Adapter<CommitsAdapter.CommitsViewHolder>() {
+    private val context = _context
+    private var dataset = mutableListOf<Commits>()
 
     inner class CommitsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val date: TextView =view.findViewById(R.id.date)
-        val sha:TextView=view.findViewById(R.id.commitId)
-        val msg:TextView=view.findViewById(R.id.commitMessage)
-        val userName:TextView=view.findViewById(R.id.userName)
-        val fullName:TextView=view.findViewById(R.id.fullName)
-        val avatar:ImageView=view.findViewById(R.id.userAvatar)
+        val date: TextView = view.findViewById(R.id.date)
+        val sha: TextView = view.findViewById(R.id.commitId)
+        val msg: TextView = view.findViewById(R.id.commitMessage)
+        val userName: TextView = view.findViewById(R.id.userName)
+        val fullName: TextView = view.findViewById(R.id.fullName)
+        val avatar: ImageView = view.findViewById(R.id.userAvatar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommitsViewHolder {
@@ -41,12 +41,12 @@ class CommitsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CommitsViewHolder, position: Int) {
-        holder.userName.text=dataset[position].userName
-        holder.fullName.text=dataset[position].fullName
-        holder.msg.text="Commit Message : \n${dataset[position].msg}"
-        holder.date.text=formatDate(dataset[position].date)
-        holder.sha.text=dataset[position].sha.substring(0,7)
-        Glide.with(holder.itemView.context).load(dataset[position].imgUrl).listener(object:
+        holder.userName.text = dataset[position].userName
+        holder.fullName.text = dataset[position].fullName
+        holder.msg.text = "Commit Message : \n${dataset[position].msg}"
+        holder.date.text = formatDate(dataset[position].date)
+        holder.sha.text = dataset[position].sha.substring(0, 7)
+        Glide.with(holder.itemView.context).load(dataset[position].imgUrl).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -73,8 +73,7 @@ class CommitsAdapter(
         return dataset.size
     }
 
-    fun updateCommits(updatedDataset:List<Commits>)
-    {
+    fun updateCommits(updatedDataset: List<Commits>) {
         dataset.clear()
         dataset.addAll(updatedDataset)
         notifyDataSetChanged()
@@ -84,22 +83,23 @@ class CommitsAdapter(
         return "${og[8]}${og[9]} ${getMonth("${og[5]}${og[6]}")} ${og[2]}${og[3]}"
     }
 
-    private fun getMonth(mon:String): String {
-        return when(mon)
-        {
-            "01"->"Jan"
-            "02"->"Feb"
-            "03"->"Mar"
-            "04"->"Apr"
-            "05"->"May"
-            "06"->"June"
-            "07"->"July"
-            "08"->"Aug"
-            "09"->"Sept"
-            "10"->"Oct"
-            "11"->"Nov"
-            "12"->"Dec"
-            else -> {"Jan"}
+    private fun getMonth(mon: String): String {
+        return when (mon) {
+            "01" -> "Jan"
+            "02" -> "Feb"
+            "03" -> "Mar"
+            "04" -> "Apr"
+            "05" -> "May"
+            "06" -> "June"
+            "07" -> "July"
+            "08" -> "Aug"
+            "09" -> "Sept"
+            "10" -> "Oct"
+            "11" -> "Nov"
+            "12" -> "Dec"
+            else -> {
+                "Jan"
+            }
         }
     }
 }

@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import net.akshat.githubbrowser.databinding.FragmentRepoDetailBinding
 import net.akshat.githubbrowser.adapters.ViewPagerAdapter
+import net.akshat.githubbrowser.databinding.FragmentRepoDetailBinding
 import net.akshat.githubbrowser.entities.Repo
 import net.akshat.githubbrowser.viewModels.RepoViewModel
 
@@ -30,8 +30,8 @@ class RepoDetailFragment : Fragment() {
     private lateinit var repoName: String
     private lateinit var desc: String
 
-    private lateinit var viewPager:ViewPager2
-    private lateinit var tabLayout:TabLayout
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
 
     private lateinit var viewModel: RepoViewModel
 
@@ -62,7 +62,8 @@ class RepoDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewPager = binding.viewPager
         tabLayout = binding.tabLayout
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, orgName, repoName, desc, tabLayout)
+        val adapter =
+            ViewPagerAdapter(parentFragmentManager, lifecycle, orgName, repoName, desc, tabLayout)
         binding.repoName.text = "$orgName/$repoName"
         binding.descriptionRepo.text = desc
 

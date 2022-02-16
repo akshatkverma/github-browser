@@ -40,36 +40,38 @@ class AddRepoFragment : Fragment() {
         setToolBar()
 
         binding.addRepoButton.setOnClickListener {
-            binding.addRepoButton.visibility=View.GONE
-            binding.addProgress.visibility=View.VISIBLE
+            binding.addRepoButton.visibility = View.GONE
+            binding.addProgress.visibility = View.VISIBLE
             val org = binding.ownerOrgName.text.toString()
             val repo = binding.repoName.text.toString()
-            getRepo(org,repo)
+            getRepo(org, repo)
         }
     }
 
-    private fun getRepo(org:String, repo:String)
-    {
-        val queue= Volley.newRequestQueue(requireContext())
+    private fun getRepo(org: String, repo: String) {
+        val queue = Volley.newRequestQueue(requireContext())
         val url = "https://api.github.com/repos/$org/$repo"
 
-        val jsonObjectRequest=object:JsonObjectRequest(
-            Method.GET,url,null,
-                {response->
-                    Toast.makeText(requireContext(),response["description"].toString(),Toast.LENGTH_LONG).show()
-                    viewModel.insertRepo(Repo(org,repo,response["description"].toString()))
-                    val action=AddRepoFragmentDirections.actionAddRepoFragmentToRepoFragment()
-                    findNavController().navigate(action)
-                },
-                {
-                    binding.addRepoButton.visibility=View.VISIBLE
-                    binding.addProgress.visibility=View.GONE
-//                    Toast.makeText(requireContext(),"Couldn't find the repository...",Toast.LENGTH_LONG).show()
-                    binding.ownerOrgName.setText("")
-                    binding.repoName.setText("")
-                }
-            )
-        {
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Method.GET, url, null,
+            { response ->
+//                    Toast.makeText(requireContext(),response["description"].toString(),Toast.LENGTH_LONG).show()
+                viewModel.insertRepo(Repo(org, repo, response["description"].toString()))
+                val action = AddRepoFragmentDirections.actionAddRepoFragmentToRepoFragment()
+                findNavController().navigate(action)
+            },
+            {
+                binding.addRepoButton.visibility = View.VISIBLE
+                binding.addProgress.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    "Couldn't find the repository...",
+                    Toast.LENGTH_LONG
+                ).show()
+                binding.ownerOrgName.setText("")
+                binding.repoName.setText("")
+            }
+        ) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 headers["Accept"] = "application/vnd.github.v3+json"
@@ -84,8 +86,8 @@ class AddRepoFragment : Fragment() {
         toolbar.toolbarTitle.text = "Add Repository"
         toolbar.toolbarSubtitle.visibility = View.GONE
         toolbar.addButton.visibility = View.INVISIBLE
-        toolbar.deleteButton.visibility=View.INVISIBLE
-        toolbar.openBrowser.visibility=View.INVISIBLE
+        toolbar.deleteButton.visibility = View.INVISIBLE
+        toolbar.openBrowser.visibility = View.INVISIBLE
 
         toolbar.backButton.setOnClickListener {
             val action = AddRepoFragmentDirections.actionAddRepoFragmentToRepoFragment()

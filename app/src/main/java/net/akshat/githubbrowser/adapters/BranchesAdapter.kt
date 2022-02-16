@@ -10,17 +10,18 @@ import net.akshat.githubbrowser.R
 
 class BranchesAdapter(
     private val context: Context
-): RecyclerView.Adapter<BranchesAdapter.BranchesViewHolder> (){
+) : RecyclerView.Adapter<BranchesAdapter.BranchesViewHolder>() {
 
     private var dataset: MutableList<String> = ArrayList()
 
     var onItemClick: ((String, Int) -> Unit)? = null
 
     inner class BranchesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val branchName: TextView =view.findViewById(R.id.branchName)
+        val branchName: TextView = view.findViewById(R.id.branchName)
+
         init {
-            itemView.setOnClickListener{
-                onItemClick?.invoke(dataset[adapterPosition],adapterPosition)
+            itemView.setOnClickListener {
+                onItemClick?.invoke(dataset[adapterPosition], adapterPosition)
             }
         }
     }
@@ -33,15 +34,14 @@ class BranchesAdapter(
     }
 
     override fun onBindViewHolder(holder: BranchesViewHolder, position: Int) {
-        holder.branchName.text=dataset[position]
+        holder.branchName.text = dataset[position]
     }
 
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    fun updateBranchItems(updatedDataset:List<String>)
-    {
+    fun updateBranchItems(updatedDataset: List<String>) {
         dataset.clear()
         dataset.addAll(updatedDataset)
         notifyDataSetChanged()
